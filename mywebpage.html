@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Single File Blog</title>
+  <style>
+    /* CSS Styles */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem;
+      line-height: 1.5;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+    nav ul.hidden {
+      display: none;
+    }
+    #menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    main section {
+      margin-bottom: 2rem;
+    }
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      color: #555;
+    }
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+        background-color: #eee;
+        padding: 1rem;
+      }
+      #menu-toggle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Single-File Blog</h1>
+    <nav>
+      <button id="menu-toggle" aria-label="Toggle menu">☰</button>
+      <ul id="menu" class="hidden">
+        <li><a href="#" data-section="home">Home</a></li>
+        <li><a href="#" data-section="about">About</a></li>
+        <li><a href="#" data-section="blog">Blog</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="content-section">
+      <h2>Welcome!</h2>
+      <p>This is a simple blog homepage inside one HTML file.</p>
+    </section>
+
+    <section id="about" class="content-section" style="display:none;">
+      <h2>About Me</h2>
+      <p>I'm a web enthusiast building projects with HTML, CSS, and JavaScript.</p>
+    </section>
+
+    <section id="blog" class="content-section" style="display:none;">
+      <h2>Blog Posts</h2>
+      <article>
+        <h3>First Post</h3>
+        <p>This is my very first blog post. Stay tuned for more!</p>
+      </article>
+      <article>
+        <h3>Second Post</h3>
+        <p>Here’s some more content. Enjoy reading!</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 My Blog</p>
+  </footer>
+
+  <script>
+    // Toggle mobile menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+
+    menuToggle.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+
+    // Simple client-side navigation
+    const links = menu.querySelectorAll('a[data-section]');
+    const sections = document.querySelectorAll('.content-section');
+
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = e.target.getAttribute('data-section');
+        sections.forEach(sec => {
+          sec.style.display = (sec.id === target) ? 'block' : 'none';
+        });
+        if (!menu.classList.contains('hidden')) {
+          menu.classList.add('hidden'); // hide menu on mobile after click
+        }
+      });
+    });
+  </script>
+</body>
+</html>
